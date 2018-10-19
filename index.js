@@ -20,8 +20,8 @@ const query = new GraphQLObjectType({
 let server = express()
 
 server.use(
-  '/graphql',
+  '/',
   graphqlHTTP({ schema: new GraphQLSchema({ query }), graphiql: true }),
 )
 
-server.listen(3005)
+server.listen(3000)
