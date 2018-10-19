@@ -3,7 +3,7 @@ const { GraphQLObjectType, GraphQLString } = require('graphql')
 // Define a type that describes the data
 const ITSG33a = new GraphQLObjectType({
   name: 'ITSG33a',
-  description: 'An example date/time object',
+  description: 'IT Security Risk Management Security Controls',
   fields: () => ({
     AC2: {
       description: 'Account Management',
