@@ -1,8 +1,10 @@
-const { Reference } = require('../Reference')
+const { Reference } = require("../Reference");
 
-describe('Reference Type', () => {
-  it('has the correct fields', () => {
-    let fields = Object.keys(Reference.getFields())
-    expect(fields).toContain("name", "type", "path")
-  })
-})
+describe("Reference Type", () => {
+  it("has the correct fields", () => {
+    const fields = Object.keys(Reference.getFields());
+    const expected = ["name", "type", "path"];
+    
+    expect(fields).toEqual(expect.arrayContaining(expected));
+  });
+});

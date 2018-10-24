@@ -1,8 +1,8 @@
-const { SatisfactionCriteria } = require("../SatisfactionCriteria");
+const { OpenControl } = require("../OpenControl");
 
-describe("SatisfactionCriteria Type", () => {
+describe("OpenControl Type", () => {
   it("has the correct fields", () => {
-    const fields = Object.keys(SatisfactionCriteria.getFields());
+    const fields = Object.keys(OpenControl.getFields());
     const expected = [
       "documentation_complete",
       "name",
