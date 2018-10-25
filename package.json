@@ -20,7 +20,14 @@
   },
   "devDependencies": {
     "jest": "^23.6.0",
-    "jest-fetch-mock": "^1.6.6"
+    "jest-fetch-mock": "^1.6.6",
+    "husky": "^1.1.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test",
+      "pre-push": "npm test"
+    }
   },
   "jest": {
     "testEnvironment": "node",
