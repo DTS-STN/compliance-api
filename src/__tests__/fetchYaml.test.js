@@ -1,10 +1,10 @@
 global.fetch = require('jest-fetch-mock')
-const { getBaseline } = require('../getBaseline')
+const { fetchYaml } = require('../fetchYaml')
 
-describe('getBaseline', () => {
+describe('fetchYaml', () => {
   it('raises an error when called with no arguments', async () => {
     try {
-      await getBaseline()
+      await fetchYaml()
     } catch ({ message }) {
       expect(message).toMatch(/you must provide a url/)
     }
@@ -12,7 +12,7 @@ describe('getBaseline', () => {
 
   it('raises an error when called with a bad URL', async () => {
     try {
-      await getBaseline('not a url')
+      await fetchYaml('not a url')
     } catch ({ message }) {
       expect(message).toMatch(/not a valid URL/)
     }
@@ -20,7 +20,7 @@ describe('getBaseline', () => {
 
   it(`raises an error when the URL isn't pointing to a .yaml file`, async () => {
     try {
-			await getBaseline('https://example.com/fluffy-kittens.jpg')
+			await fetchYaml('https://example.com/fluffy-kittens.jpg')
     } catch ({ message }) {
       expect(message).toMatch(/needs to point to a YAML file/)
     }
@@ -37,7 +37,7 @@ standards:
     AU-2: {}
     AU-6: {}
 `)
-    let baseline = await getBaseline('https://example.com/baseline.yaml')
+    let baseline = await fetchYaml('https://example.com/baseline.yaml')
     expect(baseline).toEqual({
       name: 'light',
       standards: {

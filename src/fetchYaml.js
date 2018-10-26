@@ -1,6 +1,6 @@
 const YAML = require('yaml')
 
-module.exports.getBaseline = async baselineURL => {
+module.exports.fetchYaml = async baselineURL => {
   if (baselineURL === undefined)
     throw new Error('you must provide a url for the baseline.yaml document')
 

@@ -2,7 +2,7 @@ const { getChecks } = require('../getChecks.js')
 
 describe('getChecks', () => {
   it('returns an array of check objects from json files', async () => {
-    let [check] = await getChecks('src/__tests__/checks/*.json')
+		let [check] = await getChecks('src/__tests__/testData/checks/*.json')
 
     expect(check).toEqual({
       component: 'source_code',
