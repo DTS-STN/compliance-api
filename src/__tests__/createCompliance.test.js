@@ -43,7 +43,7 @@ describe('createCompliance', () => {
       name: 'nano',
       standards: {
         'ITSG-33a': {
-          'SA-11 (1)': {
+          'SA_11_1': {
             description:
               'DEVELOPER SECURITY TESTING AND EVALUATION | STATIC CODE ANALYSIS\nThe organization requires the developer of the information system, system component, or information system service to employ static code analysis tools to identify common flaws and document the results of the analysis.',
             family: 'SA',
