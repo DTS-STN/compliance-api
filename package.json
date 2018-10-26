@@ -8,6 +8,12 @@
     "dbg": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "start": "node index.js"
   },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "git add"
+    ]
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -19,13 +25,15 @@
     "yaml": "^1.0.0"
   },
   "devDependencies": {
+    "husky": "^1.1.2",
     "jest": "^23.6.0",
     "jest-fetch-mock": "^1.6.6",
-    "husky": "^1.1.2"
+    "lint-staged": "^7.3.0",
+    "prettier": "^1.14.3"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm test",
+      "pre-commit": "npm test && lint-staged",
       "pre-push": "npm test"
     }
   },
