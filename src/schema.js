@@ -1,17 +1,17 @@
-const { GraphQLSchema, GraphQLObjectType, GraphQLString } = require('graphql')
-const { ITSG33a } = require('./ITSG33a')
+const { GraphQLSchema, GraphQLObjectType, GraphQLString } = require("graphql");
+const { ITSG33a } = require("./ITSG33a");
 
 const query = new GraphQLObjectType({
-  name: 'Query',
+  name: "Query",
   fields: {
     ITSG33a: {
-      description: 'Returns data on project compliance with various controls',
+      description: "Returns data on project compliance with various controls",
       type: ITSG33a,
-      resolve: () => {
-        return {}
-      },
-    },
-  },
-})
+      resolve: (root, args, context, info) => {
+        return root.standards["ITSG-33a"];
+      }
+    }
+  }
+});
 
-module.exports.schema = new GraphQLSchema({ query })
+module.exports.schema = new GraphQLSchema({ query });

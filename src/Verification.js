@@ -1,29 +1,37 @@
-const { GraphQLObjectType, GraphQLString, GraphQLBoolean } = require("graphql");
+const {
+  GraphQLList,
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLBoolean
+} = require("graphql");
 
 const Verification = new GraphQLObjectType({
   name: "Verification",
   description: "OpenControl Verification Type",
   fields: () => ({
-    key: { description: "key", type: GraphQLString },
-    name: { description: "name", type: GraphQLString },
-    path: {
-      description: "path",
+    origin: {
+      description: "name of the container than ran the check",
       type: GraphQLString
     },
-    type: {
-      description: "verification type",
+    timestamp: { description: "time the check was run", type: GraphQLString },
+    passed: {
+      description: "whether or not the check passed",
       type: GraphQLString
     },
     description: {
       description: "description",
       type: GraphQLString
     },
-    test_passed: {
-      description: "testPassed",
-      type: GraphQLBoolean
+    satisfies: {
+      description: "which controls this check satisfies",
+      type: new GraphQLList(GraphQLString)
     },
-    last_run: {
-      description: "lastRun",
+    component: {
+      description: "component",
+      type: GraphQLString
+    },
+    references: {
+      description: "references",
       type: GraphQLString
     }
   })

@@ -4,13 +4,13 @@ describe("Verification Type", () => {
   it("has the correct fields", () => {
     const fields = Object.keys(Verification.getFields());
     const expected = [
-      "key",
-      "name",
-      "path",
-      "type",
+      "origin",
+      "timestamp",
+      "passed",
       "description",
-      "test_passed",
-      "last_run"
+      "satisfies",
+      "component",
+      "references"
     ];
 
     expect(fields).toEqual(expect.arrayContaining(expected));
