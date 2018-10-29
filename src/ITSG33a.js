@@ -1,273 +1,160 @@
-const { GraphQLObjectType, GraphQLString } = require('graphql')
+const { GraphQLObjectType } = require("graphql");
+const { OpenControl } = require("./OpenControl.js");
 
-// Define a type that describes the data
+// TODO: this isn't correct. This type is just representing the selection of
+// controls in the "light" certification.
 const ITSG33a = new GraphQLObjectType({
-  name: 'ITSG33a',
-  description: 'IT Security Risk Management Security Controls',
+  name: "ITSG33a",
+  description: "IT Security Risk Management Security Controls",
   fields: () => ({
-    AC2: {
-      description: 'Account Management',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    AC_2: {
+      description: "Account Management",
+      type: OpenControl
     },
-    AC3: {
-      description: 'Access Enforcement',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    AC_3: {
+      description: "Access Enforcement",
+      type: OpenControl
     },
-    AC6: {
-      description: 'Least Priviledge',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    AC_6: {
+      description: "Least Priviledge",
+      type: OpenControl
     },
-    AU2: {
-      description: 'Auditable Events',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    AU_2: {
+      description: "Auditable Events",
+      type: OpenControl
     },
-    AU3: {
-      description: 'Content of Audit Records',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    AU_3: {
+      description: "Content of Audit Records",
+      type: OpenControl
     },
-    AU3_1: {
-      description: '(1) Content of Audit Records',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    AU_3_1: {
+      description: "(1) Content of Audit Records",
+      type: OpenControl
     },
-    AU6: {
-      description: 'Audit Review, Analysis, And Reporting',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    AU_6: {
+      description: "Audit Review, Analysis, And Reporting",
+      type: OpenControl
     },
-    AU8: {
-      description: 'Time Stamps',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    AU_8: {
+      description: "Time Stamps",
+      type: OpenControl
     },
-    AU8_1: {
-      description: 'Time Stamps (1)',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    AU_8_1: {
+      description: "Time Stamps (1)",
+      type: OpenControl
     },
-    CA2_2: {
-      description: 'Security Assessments | Specialized Assessments (2)',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    CA_2_2: {
+      description: "Security Assessments | Specialized Assessments (2)",
+      type: OpenControl
     },
-    CA8: {
-      description: 'Penetration Testing',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    CA_8: {
+      description: "Penetration Testing",
+      type: OpenControl
     },
-    CA8_1: {
-      description: 'Penetration Testing (1)',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    CA_8_1: {
+      description: "Penetration Testing (1)",
+      type: OpenControl
     },
-    CM2: {
-      description: 'Baseline Configuration',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    CM_2: {
+      description: "Baseline Configuration",
+      type: OpenControl
     },
-    CM6_1: {
-      description: 'Configuration Settings',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    CM_6_1: {
+      description: "Configuration Settings",
+      type: OpenControl
     },
-    CM7: {
-      description: 'Least Functionality',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    CM_7: {
+      description: "Least Functionality",
+      type: OpenControl
     },
-    CM8: {
-      description: 'Information System Component Inventory',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    CM_8: {
+      description: "Information System Component Inventory",
+      type: OpenControl
     },
-    CM8_1: {
+    CM_8_1: {
       description:
-        'Information System Component Inventory - Updates During Installs and Removals',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+        "Information System Component Inventory - Updates During Installs and Removals",
+      type: OpenControl
     },
-    CM8_4: {
+    CM_8_4: {
       description:
-        'Information System Component Inventory - Accountable Information',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+        "Information System Component Inventory - Accountable Information",
+      type: OpenControl
     },
-    IA5_7: {
+    IA_5_7: {
       description:
-        'Authenticator Management - No embedded unencrypted static keys',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+        "Authenticator Management - No embedded unencrypted static keys",
+      type: OpenControl
     },
-    PL8: {
-      description: 'Information Security Architecture',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    PL_8: {
+      description: "Information Security Architecture",
+      type: OpenControl
     },
-    RA5: {
-      description: 'Vulnerability Scanning',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    RA_5: {
+      description: "Vulnerability Scanning",
+      type: OpenControl
     },
-    SA11: {
-      description: 'Developer Security Testing',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    SA_11: {
+      description: "Developer Security Testing",
+      type: OpenControl
     },
-    SA11_1: {
-      description: 'Static Code Analysis',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    SA_11_1: {
+      description: "Static Code Analysis",
+      type: OpenControl
     },
-    SA11_4: {
-      description: 'Manual Code Reviews',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    SA_11_4: {
+      description: "Manual Code Reviews",
+      type: OpenControl
     },
-    SA12: {
-      description: 'Supply Chain Protection',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
-    },
-    SA12: {
-      description: 'Supply Chain Protection',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    SA_12: {
+      description: "Supply Chain Protection",
+      type: OpenControl
     },
     SA15_4: {
-      description: 'Threat Modeling / Vulnerability Analysis',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+      description: "Threat Modeling / Vulnerability Analysis",
+      type: OpenControl
     },
-    SA22: {
-      description: 'Unsupported System Components',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    SA_22: {
+      description: "Unsupported System Components",
+      type: OpenControl
     },
-    SC7: {
-      description: 'Boundary Protection',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    SC_7: {
+      description: "Boundary Protection",
+      type: OpenControl
     },
-    SC8: {
-      description: 'Transmission confidentiality and Integrity',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    SC_8: {
+      description: "Transmission confidentiality and Integrity",
+      type: OpenControl
     },
-    SC12: {
-      description: 'Cryptographic Key Management and Establishment',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    SC_12: {
+      description: "Cryptographic Key Management and Establishment",
+      type: OpenControl
     },
-    SC13: {
-      description: 'Cryptographic Protection',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    SC_13: {
+      description: "Cryptographic Protection",
+      type: OpenControl
     },
-    SI2: {
-      description: 'Flaw remediation',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    SI_2: {
+      description: "Flaw remediation",
+      type: OpenControl
     },
-    SI5: {
-      description: 'Security Alerts, Advisories, and Directives',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    SI_5: {
+      description: "Security Alerts, Advisories, and Directives",
+      type: OpenControl
     },
-    SI10: {
-      description: 'Information Input Validation',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    SI_10: {
+      description: "Information Input Validation",
+      type: OpenControl
     },
-    SI11: {
-      description: 'Error Handling',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
+    SI_11: {
+      description: "Error Handling",
+      type: OpenControl
     },
-    SI17: {
-      description: 'Fail-Safe Procedures',
-      type: GraphQLString,
-      resolve: () => {
-        return 'totally compliant'
-      },
-    },
-  }),
-})
+    SI_17: {
+      description: "Fail-Safe Procedures",
+      type: OpenControl
+    }
+  })
+});
 
-module.exports.ITSG33a = ITSG33a
+module.exports.ITSG33a = ITSG33a;
