@@ -1,34 +1,26 @@
-require("dotenv-safe").config();
-require("isomorphic-fetch");
-const express = require("express");
-const graphqlHTTP = require("express-graphql");
-const { schema } = require("./src/schema");
-const { getChecks } = require("./src/getChecks.js");
-const { fetchYaml } = require("./src/fetchYaml.js");
-const { createCompliance } = require("./src/createCompliance.js");
-(async () => {
+require('dotenv-safe').config()
+const { getChecks } = require('./src/getChecks.js')
+const { fetchYaml } = require('./src/fetchYaml.js')
+const { createCompliance } = require('./src/createCompliance.js')
+const { Server } = require('./src/Server')
+;(async () => {
   const {
     CHECKS_PATH: checksPath,
     DEFINITIONS_URL: definitionsUrl,
-    CERTIFICATION_URL: certificationUrl
-  } = process.env;
+    CERTIFICATION_URL: certificationUrl,
+  } = process.env
 
-  let server = express();
-
-  let checks = await getChecks(checksPath);
-  let certification = await fetchYaml(certificationUrl);
-  let definitions = await fetchYaml(definitionsUrl);
+  let checks = await getChecks(checksPath)
+  let certification = await fetchYaml(certificationUrl)
+  let definitions = await fetchYaml(definitionsUrl)
 
   let compliancePosture = await createCompliance({
     definitions,
     checks,
-    certification
-  });
+    certification,
+  })
 
-  server.use(
-    "/",
-    graphqlHTTP({ schema, graphiql: true, rootValue: compliancePosture })
-  );
+  let server = Server(compliancePosture)
 
-  server.listen(3000);
-})();
+  server.listen(3000)
+})()
