@@ -25,7 +25,7 @@ let checks, certification, definitions
 describe('createCompliance', () => {
   beforeAll(async () => {
     // real fixture path
-    checks = await getChecks('src/__tests__/testData/checks/*.json')
+    checks = await getChecks('src/__tests__/testData/checks')
     // fake but valid url, response is just from the mock
     // first call gets the first mock with the certification
     certification = await fetchYaml('https://example.com/foo.yaml')
