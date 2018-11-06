@@ -1,4 +1,4 @@
-FROM node:10-alpine
+FROM node:alpine
 MAINTAINER Mike Williamson <mike.williamson@cds-snc.ca>
 
 ENV NODE_ENV production
