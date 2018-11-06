@@ -8,12 +8,16 @@ const deepFreeze = object => {
   return Object.freeze(object)
 }
 
-module.exports.createCompliance = async ({
-  definitions,
-  checks,
-  certification,
-}) => {
-  let complianceStatus = checks.reduce((status, check) => {
+const createComplianceTarget = (standard, definitions) =>
+  Object.entries(standard).reduce((target, [k, v]) => {
+    target[k] = definitions[k]
+    target[k].id = k
+    target[k].verifications = []
+    return target
+  }, {})
+
+const addControlsWithVerifications = (checks, target, definitions) =>
+  checks.reduce((status, check) => {
     check.satisfies.forEach(ctl => {
       if (status[ctl]) {
         if (status[ctl].verifications) {
@@ -28,7 +32,23 @@ module.exports.createCompliance = async ({
       }
     })
     return status
-  }, {})
+  }, target)
+
+module.exports.createCompliance = async ({
+  definitions,
+  checks,
+  certification,
+}) => {
+  let complianceTarget = createComplianceTarget(
+    certification.standards['ITSG-33a'],
+    definitions,
+  )
+
+  let complianceStatus = addControlsWithVerifications(
+    checks,
+    complianceTarget,
+    definitions,
+  )
 
   return deepFreeze(complianceStatus)
 }

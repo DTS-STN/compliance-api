@@ -71,6 +71,12 @@ describe('GraphQL Schema', () => {
       data: {
         controls: [
           {
+            family: 'AU',
+            id: 'AU-6',
+            name: 'Audit Review, Analysis, And Reporting',
+            verifications: [],
+          },
+          {
             family: 'SA',
             id: 'SA-11 (1)',
             name: 'Developer Security Testing',
