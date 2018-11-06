@@ -22,5 +22,10 @@ const { Server } = require('./src/Server')
 
   let server = Server(compliancePosture)
 
-  server.listen(3000)
+  const port = parseInt(process.env.PORT, 10) || 3000
+
+  server.listen(port, err => {
+    if (err) throw err
+    console.log(`> Ready on //localhost:${port}`)
+  })
 })()
