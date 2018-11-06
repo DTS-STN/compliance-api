@@ -1,39 +1,34 @@
-const isEmpty = (suspect = {}) => Object.keys(suspect).length === 0
-
-const makeSchemaFriendly = str =>
-  str.replace(/(\w{2})-(\d{1,2})/, '$1_$2').replace(/ \((\d{1,2})\)/, '_$1')
+const deepFreeze = object => {
+  let propNames = Object.getOwnPropertyNames(object)
+  for (let name of propNames) {
+    let value = object[name]
+    object[name] =
+      value && typeof value === 'object' ? deepFreeze(value) : value
+  }
+  return Object.freeze(object)
+}
 
 module.exports.createCompliance = async ({
   definitions,
   checks,
   certification,
 }) => {
-  let {
-    standards: { 'ITSG-33a': itsg },
-  } = certification
-
-  let compliance = Object.keys(itsg).reduce((cplnc, key) => {
-    cplnc[makeSchemaFriendly(key)] = definitions[key]
-    return cplnc
-  }, {})
-
-  let controlsWeCareAbout = Object.keys(itsg)
-
-  checks.forEach(check => {
+  let complianceStatus = checks.reduce((status, check) => {
     check.satisfies.forEach(ctl => {
-      if (controlsWeCareAbout.includes(ctl)) {
-        if (!compliance[makeSchemaFriendly(ctl)].verifications) {
-          compliance[makeSchemaFriendly(ctl)].verifications = []
+      if (status[ctl]) {
+        if (status[ctl].verifications) {
+          status[ctl].verifications = [...status[ctl].verifications, check]
+        } else {
+          status[ctl].verifications = [check]
         }
-
-        compliance[makeSchemaFriendly(ctl)].verifications = [
-          ...compliance[makeSchemaFriendly(ctl)].verifications,
-          check,
-        ]
+      } else {
+        status[ctl] = definitions[ctl]
+        status[ctl].verifications = [check]
+        status[ctl].id = ctl
       }
     })
-  })
+    return status
+  }, {})
 
-  certification.standards['ITSG-33a'] = compliance
-  return certification
+  return deepFreeze(complianceStatus)
 }

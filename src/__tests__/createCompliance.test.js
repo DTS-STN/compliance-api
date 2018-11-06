@@ -10,6 +10,7 @@ fetch.mockResponses(
 name: nano
 standards:
   ITSG-33a:
+    AU-6: {}
     SA-11 (1): {}
 `,
     { status: 200 },
@@ -40,29 +41,44 @@ describe('createCompliance', () => {
       certification,
     })
     expect(compliancePosture).toEqual({
-      name: 'nano',
-      standards: {
-        'ITSG-33a': {
-          SA_11_1: {
+      'SA-11 (1)': {
+        description:
+          'DEVELOPER SECURITY TESTING AND EVALUATION | STATIC CODE ANALYSIS\nThe organization requires the developer of the information system, system component, or information system service to employ static code analysis tools to identify common flaws and document the results of the analysis.',
+        family: 'SA',
+        id: 'SA-11 (1)',
+        name: 'Developer Security Testing',
+        verifications: [
+          {
+            component: 'source_code',
             description:
-              'DEVELOPER SECURITY TESTING AND EVALUATION | STATIC CODE ANALYSIS\nThe organization requires the developer of the information system, system component, or information system service to employ static code analysis tools to identify common flaws and document the results of the analysis.',
-            family: 'SA',
-            name: 'Developer Security Testing',
-            verifications: [
-              {
-                component: 'source_code',
-                description:
-                  'The application uses an ESLint file to do so static code analysis.',
-                origin: 'sa_11_1:latest',
-                passed: true,
-                references:
-                  'https://github.com/cds-snc/vac-benefits-directory/blob/master/.eslintrc.json',
-                satisfies: ['SA-11 (1)'],
-                timestamp: '2018-10-25T14:33:26Z',
-              },
-            ],
+              'The application uses an ESLint file to do so static code analysis.',
+            origin: 'sa_11_1:latest',
+            passed: true,
+            references:
+              'https://github.com/cds-snc/vac-benefits-directory/blob/master/.eslintrc.json',
+            satisfies: ['SA-11 (1)'],
+            timestamp: '2018-10-25T14:33:26Z',
           },
-        },
+        ],
+      },
+      'SI-10': {
+        description:
+          '(A) The information system checks the validity of [Assignment: organization-defined information inputs].',
+        family: 'SI',
+        id: 'SI-10',
+        name: 'Information Input Validation',
+        verifications: [
+          {
+            component: 'Source code',
+            description: 'The application contains tests to validate inputs',
+            origin: 'cdssnc/url-check-compliance:latest',
+            passed: false,
+            references:
+              'https://github.com/cds-snc/mrpinchy-confession-box/blob/master/__tests__/form.test.js',
+            satisfies: ['SI-10'],
+            timestamp: '2018-10-30T14:28:29Z',
+          },
+        ],
       },
     })
   })

@@ -2,33 +2,41 @@ const {
   GraphQLObjectType,
   GraphQLList,
   GraphQLString,
-  GraphQLBoolean
-} = require("graphql");
-const { SatisfactionCriteria } = require("./SatisfactionCriteria");
-const { Reference } = require("./Reference");
-const { Verification } = require("./Verification");
+  GraphQLBoolean,
+} = require('graphql')
+const { SatisfactionCriteria } = require('./SatisfactionCriteria')
+const { Reference } = require('./Reference')
+const { Verification } = require('./Verification')
 
 const OpenControl = new GraphQLObjectType({
-  name: "OpenControl",
-  description: "OpenControl Type",
+  name: 'OpenControl',
+  description: 'OpenControl Type',
   fields: () => ({
+    id: {
+      description: 'control id',
+      type: GraphQLString,
+    },
     name: {
-      description: "name",
-      type: GraphQLString
+      description: 'name',
+      type: GraphQLString,
     },
     family: {
-      description: "family",
-      type: GraphQLString
+      description: 'family',
+      type: GraphQLString,
     },
     description: {
-      description: "a description of the control",
-      type: GraphQLString
+      description: 'a description of the control',
+      type: GraphQLString,
     },
     verifications: {
-      description: "verifications",
-      type: new GraphQLList(Verification)
-    }
-  })
-});
+      description: 'verifications',
+      type: new GraphQLList(Verification),
+      resolve: (root, args, context, info) => {
+        debugger
+        return root.verifications
+      },
+    },
+  }),
+})
 
-module.exports.OpenControl = OpenControl;
+module.exports.OpenControl = OpenControl

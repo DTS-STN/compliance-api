@@ -1,17 +1,24 @@
-const { GraphQLSchema, GraphQLObjectType, GraphQLString } = require("graphql");
-const { ITSG33a } = require("./ITSG33a");
+const {
+  GraphQLList,
+  GraphQLSchema,
+  GraphQLObjectType,
+  GraphQLString,
+} = require('graphql')
+const { OpenControl } = require('./OpenControl')
 
 const query = new GraphQLObjectType({
-  name: "Query",
+  name: 'Query',
   fields: {
-    ITSG33a: {
-      description: "Returns data on project compliance with various controls",
-      type: ITSG33a,
+    controls: {
+      description: 'Returns a list of all controls',
+      type: new GraphQLList(OpenControl),
       resolve: (root, args, context, info) => {
-        return root.standards["ITSG-33a"];
-      }
-    }
-  }
-});
+        return Object.entries(root).reduce((controls, [k, v]) => {
+          return [...controls, v]
+        }, [])
+      },
+    },
+  },
+})
 
-module.exports.schema = new GraphQLSchema({ query });
+module.exports.schema = new GraphQLSchema({ query })

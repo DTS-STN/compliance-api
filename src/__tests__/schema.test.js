@@ -32,59 +32,62 @@ describe('GraphQL Schema', () => {
     // fake but valid url, response is just from the mock
     // first call gets the first mock with the certification
     certification = await fetchYaml('https://example.com/foo.yaml')
+
     // second call gets second mock with the full definitions
     definitions = await fetchYaml('https://example.com/ITSG-33a.yaml')
   })
 
-  it('Has a ITSG33a type', () => {
-    let itsg = schema.getType('ITSG33a')
-    expect(itsg.name).toEqual('ITSG33a')
+  describe('Query type', () => {
+    it('has a controls field defined', () => {
+      let Query = schema.getType('Query')
+      let fields = Query.getFields()
+      expect(fields).toHaveProperty('controls')
+    })
   })
 
-  it('properly returns data using ITSG33a type', async () => {
+  it('returns a list of all controls', async () => {
     let compliancePosture = await createCompliance({
       definitions,
       checks,
       certification,
     })
+
     let query = `
     {
-      ITSG33a {
-        SA_11_1 {
-          name
-          description
-          family
-          verifications {
-            origin
-            satisfies
-            passed
-            description
-            timestamp
-          }
+      controls {
+        id
+        name
+        family
+        verifications {
+          origin
+          passed
         }
       }
-    }`
+    }
+    `
+
     let response = await graphql(schema, query, compliancePosture)
     expect(response).toEqual({
       data: {
-        ITSG33a: {
-          SA_11_1: {
-            description:
-              'DEVELOPER SECURITY TESTING AND EVALUATION | STATIC CODE ANALYSIS\nThe organization requires the developer of the information system, system component, or information system service to employ static code analysis tools to identify common flaws and document the results of the analysis.',
+        controls: [
+          {
             family: 'SA',
+            id: 'SA-11 (1)',
             name: 'Developer Security Testing',
+            verifications: [{ origin: 'sa_11_1:latest', passed: 'true' }],
+          },
+          {
+            family: 'SI',
+            id: 'SI-10',
+            name: 'Information Input Validation',
             verifications: [
               {
-                description:
-                  'The application uses an ESLint file to do so static code analysis.',
-                origin: 'sa_11_1:latest',
-                passed: 'true',
-                satisfies: ['SA-11 (1)'],
-                timestamp: '2018-10-25T14:33:26Z',
+                origin: 'cdssnc/url-check-compliance:latest',
+                passed: 'false',
               },
             ],
           },
-        },
+        ],
       },
     })
   })
