@@ -120,4 +120,45 @@ describe('GraphQL Schema', () => {
       ])
     })
   })
+
+  describe('failedControls', () => {
+    it('returns the list of controls with checks that fail', async () => {
+      let compliancePosture = await createCompliance({
+        definitions,
+        checks,
+        certification,
+      })
+
+      let query = `
+        {
+          failedControls {
+            id
+            name
+            family
+            verifications {
+              origin
+              passed
+            }
+          }
+        }
+      `
+
+      let result = await graphql(schema, query, compliancePosture)
+      expect(result).not.toHaveProperty('errors')
+      let { failedControls } = result.data
+      expect(failedControls).toEqual([
+        {
+          family: 'SI',
+          id: 'SI-10',
+          name: 'Information Input Validation',
+          verifications: [
+            {
+              origin: 'cdssnc/url-check-compliance:latest',
+              passed: 'false',
+            },
+          ],
+        },
+      ])
+    })
+  })
 })
