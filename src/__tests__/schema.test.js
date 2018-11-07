@@ -45,14 +45,15 @@ describe('GraphQL Schema', () => {
     })
   })
 
-  it('returns a list of all controls', async () => {
-    let compliancePosture = await createCompliance({
-      definitions,
-      checks,
-      certification,
-    })
+  describe('controls', () => {
+    it('returns a list of all known controls', async () => {
+      let compliancePosture = await createCompliance({
+        definitions,
+        checks,
+        certification,
+      })
 
-    let query = `
+      let query = `
     {
       controls {
         id
@@ -66,35 +67,57 @@ describe('GraphQL Schema', () => {
     }
     `
 
-    let response = await graphql(schema, query, compliancePosture)
-    expect(response).toEqual({
-      data: {
-        controls: [
-          {
-            family: 'AU',
-            id: 'AU-6',
-            name: 'Audit Review, Analysis, And Reporting',
-            verifications: [],
-          },
-          {
-            family: 'SA',
-            id: 'SA-11 (1)',
-            name: 'Developer Security Testing',
-            verifications: [{ origin: 'sa_11_1:latest', passed: 'true' }],
-          },
-          {
-            family: 'SI',
-            id: 'SI-10',
-            name: 'Information Input Validation',
-            verifications: [
-              {
-                origin: 'cdssnc/url-check-compliance:latest',
-                passed: 'false',
-              },
-            ],
-          },
-        ],
-      },
+      let result = await graphql(schema, query, compliancePosture)
+      expect(result).not.toHaveProperty('errors')
+      let [au6] = result.data.controls
+
+      expect(au6).toEqual({
+        family: 'AU',
+        id: 'AU-6',
+        name: 'Audit Review, Analysis, And Reporting',
+        verifications: [],
+      })
+    })
+  })
+
+  describe('verifiedControls', () => {
+    it('returns the list of controls with checks that pass', async () => {
+      let compliancePosture = await createCompliance({
+        definitions,
+        checks,
+        certification,
+      })
+
+      let query = `
+        {
+          verifiedControls {
+            id
+            name
+            family
+            verifications {
+              origin
+              passed
+            }
+          }
+        }
+      `
+
+      let result = await graphql(schema, query, compliancePosture)
+      expect(result).not.toHaveProperty('errors')
+      let { verifiedControls } = result.data
+      expect(verifiedControls).toEqual([
+        {
+          family: 'SA',
+          id: 'SA-11 (1)',
+          name: 'Developer Security Testing',
+          verifications: [
+            {
+              origin: 'sa_11_1:latest',
+              passed: 'true',
+            },
+          ],
+        },
+      ])
     })
   })
 })
