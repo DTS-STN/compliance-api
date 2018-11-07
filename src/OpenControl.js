@@ -32,7 +32,6 @@ const OpenControl = new GraphQLObjectType({
       description: 'verifications',
       type: new GraphQLList(Verification),
       resolve: (root, args, context, info) => {
-        debugger
         return root.verifications
       },
     },
