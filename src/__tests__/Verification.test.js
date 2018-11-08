@@ -1,4 +1,4 @@
-const { Verification } = require('../Verification')
+const { Verification } = require('../types/Verification')
 
 describe('Verification Type', () => {
   it('has the correct fields', () => {

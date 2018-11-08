@@ -1,4 +1,4 @@
-const { SatisfactionCriteria } = require('../SatisfactionCriteria')
+const { SatisfactionCriteria } = require('../types/SatisfactionCriteria')
 
 describe('SatisfactionCriteria Type', () => {
   it('has the correct fields', () => {

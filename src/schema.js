@@ -3,7 +3,7 @@ const {
   GraphQLSchema,
   GraphQLObjectType,
 } = require('graphql')
-const { OpenControl } = require('./OpenControl')
+const { OpenControl } = require('./types/OpenControl')
 
 const query = new GraphQLObjectType({
   name: 'Query',

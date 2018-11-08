@@ -1,10 +1,10 @@
-const { OpenControl } = require("../OpenControl");
+const { OpenControl } = require('../types/OpenControl')
 
-describe("OpenControl Type", () => {
-  it("has the correct fields", () => {
-    const fields = Object.keys(OpenControl.getFields());
-    const expected = ["name", "family", "description", "verifications"];
+describe('OpenControl Type', () => {
+  it('has the correct fields', () => {
+    const fields = Object.keys(OpenControl.getFields())
+    const expected = ['name', 'family', 'description', 'verifications']
 
-    expect(fields).toEqual(expect.arrayContaining(expected));
-  });
-});
+    expect(fields).toEqual(expect.arrayContaining(expected))
+  })
+})
