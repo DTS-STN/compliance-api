@@ -2,7 +2,6 @@ const {
   GraphQLList,
   GraphQLSchema,
   GraphQLObjectType,
-  GraphQLString,
 } = require('graphql')
 const { OpenControl } = require('./OpenControl')
 
@@ -12,8 +11,8 @@ const query = new GraphQLObjectType({
     controls: {
       description: 'Returns a list of all controls',
       type: new GraphQLList(OpenControl),
-      resolve: (root, args, context, info) => {
-        return Object.entries(root).reduce((controls, [k, v]) => {
+      resolve: (root) => {
+        return Object.entries(root).reduce((controls, [_k, v]) => {
           return [...controls, v]
         }, [])
       },
@@ -21,8 +20,8 @@ const query = new GraphQLObjectType({
     verifiedControls: {
       description: 'Returns a list of passing controls',
       type: new GraphQLList(OpenControl),
-      resolve: (root, args, context, info) => {
-        return Object.entries(root).reduce((controls, [k, v]) => {
+      resolve: (root) => {
+        return Object.entries(root).reduce((controls, [_k, v]) => {
           let passed = v.verifications.filter(ver => ver.passed)
           if (passed.length > 0) {
             return [...controls, v]
@@ -35,8 +34,8 @@ const query = new GraphQLObjectType({
     failedControls: {
       description: 'Returns a list of failing controls',
       type: new GraphQLList(OpenControl),
-      resolve: (root, args, context, info) => {
-        return Object.entries(root).reduce((controls, [k, v]) => {
+      resolve: (root) => {
+        return Object.entries(root).reduce((controls, [_k, v]) => {
           let passed = v.verifications.filter(ver => !ver.passed)
           if (passed.length > 0) {
             return [...controls, v]

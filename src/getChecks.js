@@ -1,9 +1,9 @@
 const { promises: fs, constants: fsConstants } = require('fs')
-const { parse, join } = require('path')
+const { parse, join } = require('path') // eslint-disable-line no-unused-vars
 
 const getChecks = async (path = '/checks') => {
   try {
-    let access = await fs.access(path, fsConstants.R_OK)
+    let access = await fs.access(path, fsConstants.R_OK) // eslint-disable-line no-unused-vars
   } catch ({ message }) {
     throw new Error(`Checks directory isn't a readable directory: ${message}`)
   }

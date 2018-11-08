@@ -1,3 +1,4 @@
+/* global fetch */
 global.fetch = require('jest-fetch-mock')
 const { fetchYaml } = require('../fetchYaml')
 
@@ -20,7 +21,7 @@ describe('fetchYaml', () => {
 
   it(`raises an error when the URL isn't pointing to a .yaml file`, async () => {
     try {
-			await fetchYaml('https://example.com/fluffy-kittens.jpg')
+      await fetchYaml('https://example.com/fluffy-kittens.jpg')
     } catch ({ message }) {
       expect(message).toMatch(/needs to point to a YAML file/)
     }

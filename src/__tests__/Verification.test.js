@@ -1,18 +1,18 @@
-const { Verification } = require("../Verification");
+const { Verification } = require('../Verification')
 
-describe("Verification Type", () => {
-  it("has the correct fields", () => {
-    const fields = Object.keys(Verification.getFields());
+describe('Verification Type', () => {
+  it('has the correct fields', () => {
+    const fields = Object.keys(Verification.getFields())
     const expected = [
-      "origin",
-      "timestamp",
-      "passed",
-      "description",
-      "satisfies",
-      "component",
-      "references"
-    ];
+      'origin',
+      'timestamp',
+      'passed',
+      'description',
+      'satisfies',
+      'component',
+      'references',
+    ]
 
-    expect(fields).toEqual(expect.arrayContaining(expected));
-  });
-});
+    expect(fields).toEqual(expect.arrayContaining(expected))
+  })
+})

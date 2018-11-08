@@ -2,10 +2,7 @@ const {
   GraphQLObjectType,
   GraphQLList,
   GraphQLString,
-  GraphQLBoolean,
 } = require('graphql')
-const { SatisfactionCriteria } = require('./SatisfactionCriteria')
-const { Reference } = require('./Reference')
 const { Verification } = require('./Verification')
 
 const OpenControl = new GraphQLObjectType({
@@ -31,9 +28,6 @@ const OpenControl = new GraphQLObjectType({
     verifications: {
       description: 'verifications',
       type: new GraphQLList(Verification),
-      resolve: (root, args, context, info) => {
-        return root.verifications
-      },
     },
   }),
 })

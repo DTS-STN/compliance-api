@@ -9,7 +9,7 @@ const deepFreeze = object => {
 }
 
 const createComplianceTarget = (standard, definitions) =>
-  Object.entries(standard).reduce((target, [k, v]) => {
+  Object.entries(standard).reduce((target, [k]) => {
     target[k] = definitions[k]
     target[k].id = k
     target[k].verifications = []

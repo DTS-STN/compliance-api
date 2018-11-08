@@ -1,3 +1,5 @@
+/* global fetch */
+
 const YAML = require('yaml')
 
 module.exports.fetchYaml = async baselineURL => {
@@ -11,8 +13,10 @@ module.exports.fetchYaml = async baselineURL => {
     throw new Error(`"${baselineURL}" is not a valid URL`)
   }
 
-	if(!url.pathname.match(/.yaml$/))
-    throw new Error(`The URL "${baselineURL}" needs to point to a YAML file (ie, ending in .yaml)`)
+  if (!url.pathname.match(/.yaml$/))
+    throw new Error(
+      `The URL "${baselineURL}" needs to point to a YAML file (ie, ending in .yaml)`,
+    )
 
   // TODO: is this a url to a yaml or yml file?
   let text

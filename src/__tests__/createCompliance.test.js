@@ -1,3 +1,4 @@
+/* global fetch */
 global.fetch = require('jest-fetch-mock')
 const fs = require('fs')
 const { getChecks } = require('../getChecks.js')
