@@ -8,7 +8,9 @@ const getChecks = async (path = '/checks') => {
     throw new Error(`Checks directory isn't a readable directory: ${message}`)
   }
   let files = await fs.readdir(path)
-  let jsonFiles = files.map(f => join(path, f.match(/.json$/).input))
+  let jsonFiles = files
+    .filter(f => f.match(/.json$/) !== null)
+    .map(f => join(path, f.match(/.json$/).input))
   let checks = await Promise.all(
     jsonFiles.map(file => fs.readFile(file, { encoding: 'utf-8' })),
   )
