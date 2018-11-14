@@ -1,9 +1,4 @@
-const {
-  GraphQLList,
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLBoolean,
-} = require('graphql')
+const { GraphQLList, GraphQLObjectType, GraphQLString } = require('graphql')
 
 const Verification = new GraphQLObjectType({
   name: 'Verification',

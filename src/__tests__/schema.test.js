@@ -24,7 +24,7 @@ standards:
   ],
 )
 
-let checks, certification, definitions
+let checks, certification, definitions, compliancePosture
 
 describe('GraphQL Schema', () => {
   beforeAll(async () => {
@@ -36,6 +36,12 @@ describe('GraphQL Schema', () => {
 
     // second call gets second mock with the full definitions
     definitions = await fetchYaml('https://example.com/ITSG-33a.yaml')
+
+    compliancePosture = await createCompliance({
+      definitions,
+      checks,
+      certification,
+    })
   })
 
   describe('Query type', () => {
@@ -48,12 +54,6 @@ describe('GraphQL Schema', () => {
 
   describe('controls', () => {
     it('returns a list of all known controls', async () => {
-      let compliancePosture = await createCompliance({
-        definitions,
-        checks,
-        certification,
-      })
-
       let query = `
     {
       controls {
@@ -83,12 +83,6 @@ describe('GraphQL Schema', () => {
 
   describe('verifiedControls', () => {
     it('returns the list of controls with checks that pass', async () => {
-      let compliancePosture = await createCompliance({
-        definitions,
-        checks,
-        certification,
-      })
-
       let query = `
         {
           verifiedControls {
@@ -124,12 +118,6 @@ describe('GraphQL Schema', () => {
 
   describe('failedControls', () => {
     it('returns the list of controls with checks that fail', async () => {
-      let compliancePosture = await createCompliance({
-        definitions,
-        checks,
-        certification,
-      })
-
       let query = `
         {
           failedControls {
@@ -160,6 +148,28 @@ describe('GraphQL Schema', () => {
           ],
         },
       ])
+    })
+  })
+  describe('control', () => {
+    it('returns a control specified by name', async () => {
+      let query = `
+        {
+          control(id: "SI-10") {
+            id
+            name
+            family
+          }
+        }
+      `
+
+      let result = await graphql(schema, query, compliancePosture)
+      expect(result).not.toHaveProperty('errors')
+      let { control } = result.data
+      expect(control).toEqual({
+        family: 'SI',
+        id: 'SI-10',
+        name: 'Information Input Validation',
+      })
     })
   })
 })
