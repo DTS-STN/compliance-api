@@ -1,1 +1,11 @@
-{"origin":"cdssnc/url-check-compliance:latest","timestamp":"2018-11-19T17:21:56Z","satisfies":["IA-5 (7)"],"passed":true,"description":"The application uses Seekret to scan for keys in the build pipeline.","references":"https://github.com/cds-snc/mrpinchy-confession-box/blob/master/cloudbuild.yaml","component":"Source code"}
+{
+    "origin": "cdssnc/url-check-compliance:latest",
+    "timestamp": "2018-11-19T17:21:56Z",
+    "satisfies": [
+        "IA-5 (7)"
+    ],
+    "passed": true,
+    "description": "The application uses Seekret to scan for keys in the build pipeline.",
+    "references": "https://github.com/cds-snc/mrpinchy-confession-box/blob/master/cloudbuild.yaml",
+    "component": "Source code"
+}

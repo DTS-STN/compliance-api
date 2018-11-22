@@ -1,1 +1,12 @@
-{"origin":"cdssnc/pod-check-compliance:latest","timestamp":"2018-11-16T15:09:11Z","satisfies":["AU-2","AU-3"],"passed":true,"description":"The AWS Node Pod logs all API requests that make infrastructure changes.","references":"aws-node","component":"Infrastructure"}
+{
+    "origin": "cdssnc/pod-check-compliance:latest",
+    "timestamp": "2018-11-16T15:09:11Z",
+    "satisfies": [
+        "AU-2",
+        "AU-3"
+    ],
+    "passed": true,
+    "description": "The AWS Node Pod logs all API requests that make infrastructure changes.",
+    "references": "aws-node",
+    "component": "Infrastructure"
+}

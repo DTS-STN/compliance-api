@@ -1,6 +1,8 @@
 const { GraphQLList, GraphQLSchema, GraphQLObjectType } = require('graphql')
 const { OpenControl } = require('./types/OpenControl')
 const { ControlID } = require('./types/ControlID')
+const { Totals } = require('./types/Totals')
+const { filterItems } = require('./utils/filterItems')
 
 const query = new GraphQLObjectType({
   name: 'Query',
@@ -8,38 +10,20 @@ const query = new GraphQLObjectType({
     controls: {
       description: 'Returns a list of all controls',
       type: new GraphQLList(OpenControl),
-      resolve: root => {
-        return Object.entries(root).reduce((controls, [_k, v]) => {
-          return [...controls, v]
-        }, [])
-      },
+      resolve: root => filterItems(root),
     },
     verifiedControls: {
       description: 'Returns a list of passing controls',
       type: new GraphQLList(OpenControl),
       resolve: root => {
-        return Object.entries(root).reduce((controls, [_k, v]) => {
-          let passed = v.verifications.filter(ver => ver.passed)
-          if (passed.length > 0) {
-            return [...controls, v]
-          } else {
-            return controls
-          }
-        }, [])
+        return filterItems(root, true)
       },
     },
     failedControls: {
       description: 'Returns a list of failing controls',
       type: new GraphQLList(OpenControl),
       resolve: root => {
-        return Object.entries(root).reduce((controls, [_k, v]) => {
-          let passed = v.verifications.filter(ver => !ver.passed)
-          if (passed.length > 0) {
-            return [...controls, v]
-          } else {
-            return controls
-          }
-        }, [])
+        return filterItems(root, false)
       },
     },
     control: {
@@ -53,6 +37,17 @@ const query = new GraphQLObjectType({
       },
       resolve: (root, { id }) => {
         return root[id]
+      },
+    },
+    totals: {
+      description: 'Returns a list of failing controls',
+      type: Totals,
+      resolve: root => {
+        const passed = filterItems(root, true)
+        const failed = filterItems(root, false)
+        const items = [...passed, ...failed]
+        const total = [...new Set(items.map(item => item.id))].length
+        return { passed: passed.length, total }
       },
     },
   },

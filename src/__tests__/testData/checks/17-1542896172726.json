@@ -1,1 +1,11 @@
-{"origin":"cdssnc/url-check-compliance:latest","timestamp":"2018-11-16T15:59:17Z","satisfies":["PL-8"],"passed":false,"description":"The application follows the guidelines laid out in the Information Architecture guide.","references":"https://github.com/cds-snc/compliance-policy-documents/information-architecture.md","component":"Policy"}
+{
+    "origin": "cdssnc/url-check-compliance:latest",
+    "timestamp": "2018-11-16T15:59:17Z",
+    "satisfies": [
+        "PL-8"
+    ],
+    "passed": false,
+    "description": "The application follows the guidelines laid out in the Information Architecture guide.",
+    "references": "https://github.com/cds-snc/compliance-policy-documents/information-architecture.md",
+    "component": "Policy"
+}

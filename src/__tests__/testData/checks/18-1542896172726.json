@@ -1,1 +1,13 @@
-{"origin":"cdssnc/github-issues-check-compliance:latest","timestamp":"2018-11-16T15:59:31Z","satisfies":["SA-11","SA-22","SI-2"],"passed":true,"description":"This application uses GitHub issues for flaw remediation.","references":"https://github.com/cds-snc/mrpinchy-confession-box","component":"Infrastructure"}
+{
+    "origin": "cdssnc/github-issues-check-compliance:latest",
+    "timestamp": "2018-11-16T15:59:31Z",
+    "satisfies": [
+        "SA-11",
+        "SA-22",
+        "SI-2"
+    ],
+    "passed": true,
+    "description": "This application uses GitHub issues for flaw remediation.",
+    "references": "https://github.com/cds-snc/mrpinchy-confession-box",
+    "component": "Infrastructure"
+}

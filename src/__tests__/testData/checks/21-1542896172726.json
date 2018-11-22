@@ -1,1 +1,11 @@
-{"origin":"cdssnc/url-check-compliance:latest","timestamp":"2018-11-19T17:21:32Z","satisfies":["AC-2"],"passed":false,"description":"The application follows Account Management policy as laid out in documentation.","references":"https://github.com/cds-snc/compliance-policy-documents/account-management.md","component":"Policy"}
+{
+    "origin": "cdssnc/url-check-compliance:latest",
+    "timestamp": "2018-11-19T17:21:32Z",
+    "satisfies": [
+        "AC-2"
+    ],
+    "passed": false,
+    "description": "The application follows Account Management policy as laid out in documentation.",
+    "references": "https://github.com/cds-snc/compliance-policy-documents/account-management.md",
+    "component": "Policy"
+}

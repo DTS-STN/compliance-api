@@ -1,1 +1,13 @@
-{"origin":"cdssnc/url-check-compliance:latest","timestamp":"2018-11-19T17:22:20Z","satisfies":["SA-11","SI-10","SI-11"],"passed":true,"description":"The application contains tests to validate inputs and error logging.","references":"https://github.com/cds-snc/mrpinchy-confession-box/blob/master/__tests__/form.test.js","component":"Source code"}
+{
+    "origin": "cdssnc/url-check-compliance:latest",
+    "timestamp": "2018-11-19T17:22:20Z",
+    "satisfies": [
+        "SA-11",
+        "SI-10",
+        "SI-11"
+    ],
+    "passed": true,
+    "description": "The application contains tests to validate inputs and error logging.",
+    "references": "https://github.com/cds-snc/mrpinchy-confession-box/blob/master/__tests__/form.test.js",
+    "component": "Source code"
+}
