@@ -1,0 +1,1 @@
+{"origin":"cdssnc/url-check-compliance:latest","timestamp":"2018-11-16T18:37:25Z","satisfies":["SI-17"],"passed":false,"description":"The application implements the fail-safe policy.","references":"https://github.com/cds-snc/compliance-policy-documents/fail-safe.md","component":"Policy"}

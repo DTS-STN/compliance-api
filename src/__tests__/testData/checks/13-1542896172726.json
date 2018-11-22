@@ -1,0 +1,1 @@
+{"origin":"cdssnc/pod-check-compliance:latest","timestamp":"2018-11-19T16:33:46Z","satisfies":["AU-2","AU-3"],"passed":false,"description":"The Kubernetes API Server Pod logs all API requests that make infrastructure changes.","references":"kube-apiserver","component":"Infrastructure"}

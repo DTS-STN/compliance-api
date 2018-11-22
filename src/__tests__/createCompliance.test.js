@@ -75,7 +75,7 @@ describe('createCompliance', () => {
       })
 
       let keys = Object.keys(compliancePosture)
-      expect(keys).toHaveLength(4)
+      expect(keys).toHaveLength(26)
     })
   })
 })
