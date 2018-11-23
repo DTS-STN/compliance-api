@@ -6,6 +6,10 @@ const { schema } = require('../schema')
 const { getChecks } = require('../getChecks.js')
 const { fetchYaml } = require('../fetchYaml.js')
 const { createCompliance } = require('../createCompliance.js')
+const { matchObjectInArray } = require('../utils/jestMatchers')
+
+// extend jest with a custom matcher
+expect.extend(matchObjectInArray())
 
 fetch.mockResponses(
   [
@@ -70,13 +74,16 @@ describe('GraphQL Schema', () => {
 
       let result = await graphql(schema, query, compliancePosture)
       expect(result).not.toHaveProperty('errors')
-      let [au6] = result.data.controls
-
-      expect(au6).toEqual({
-        family: 'AU',
-        id: 'AU-6',
-        name: 'Audit Review, Analysis, And Reporting',
-        verifications: [],
+      expect(result.data.controls).toContainObject({
+        family: 'SA',
+        id: 'SA-11 (1)',
+        name: 'Developer Security Testing',
+        verifications: [
+          {
+            origin: 'sa_11_1:latest',
+            passed: 'true',
+          },
+        ],
       })
     })
   })
@@ -99,11 +106,7 @@ describe('GraphQL Schema', () => {
 
       let result = await graphql(schema, query, compliancePosture)
       expect(result).not.toHaveProperty('errors')
-      let { verifiedControls } = result.data
-
-      // console.log(verifiedControls)
-
-      expect(verifiedControls[0].id).toEqual('SA-11 (1)')
+      expect(result.data.verifiedControls).toContainObject({ id: 'SA-11 (1)' })
     })
   })
 
@@ -125,8 +128,7 @@ describe('GraphQL Schema', () => {
 
       let result = await graphql(schema, query, compliancePosture)
       expect(result).not.toHaveProperty('errors')
-      let { failedControls } = result.data
-      expect(failedControls[0].id).toEqual('SA-11')
+      expect(result.data.failedControls).toContainObject({ id: 'CA-2 (2)' })
     })
   })
   describe('control', () => {
@@ -148,6 +150,28 @@ describe('GraphQL Schema', () => {
         family: 'SI',
         id: 'SI-10',
         name: 'Information Input Validation',
+      })
+    })
+  })
+
+  describe('totals', () => {
+    it('returns passed + total for verified and failed controls', async () => {
+      let query = `
+      {
+        totals{
+          total
+          passed
+        }
+      }
+    `
+
+      let result = await graphql(schema, query, compliancePosture)
+      expect(result).not.toHaveProperty('errors')
+      expect(result.data).toEqual({
+        totals: {
+          total: 11,
+          passed: 5,
+        },
       })
     })
   })
