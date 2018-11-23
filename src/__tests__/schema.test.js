@@ -6,6 +6,10 @@ const { schema } = require('../schema')
 const { getChecks } = require('../getChecks.js')
 const { fetchYaml } = require('../fetchYaml.js')
 const { createCompliance } = require('../createCompliance.js')
+const { matchObjectInArray } = require('../utils/jestMatchers')
+
+// extend jest with a custom matcher
+expect.extend(matchObjectInArray())
 
 fetch.mockResponses(
   [
@@ -70,10 +74,7 @@ describe('GraphQL Schema', () => {
 
       let result = await graphql(schema, query, compliancePosture)
       expect(result).not.toHaveProperty('errors')
-
-      let [sa11] = result.data.controls
-
-      expect(sa11).toEqual({
+      expect(result.data.controls).toContainObject({
         family: 'SA',
         id: 'SA-11 (1)',
         name: 'Developer Security Testing',
@@ -105,8 +106,7 @@ describe('GraphQL Schema', () => {
 
       let result = await graphql(schema, query, compliancePosture)
       expect(result).not.toHaveProperty('errors')
-      let { verifiedControls } = result.data
-      expect(verifiedControls[0].id).toEqual('SA-11 (1)')
+      expect(result.data.verifiedControls).toContainObject({ id: 'SA-11 (1)' })
     })
   })
 
@@ -128,8 +128,7 @@ describe('GraphQL Schema', () => {
 
       let result = await graphql(schema, query, compliancePosture)
       expect(result).not.toHaveProperty('errors')
-      let { failedControls } = result.data
-      expect(failedControls[0].id).toEqual('CA-2 (2)')
+      expect(result.data.failedControls).toContainObject({ id: 'CA-2 (2)' })
     })
   })
   describe('control', () => {
