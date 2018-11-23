@@ -175,4 +175,31 @@ describe('GraphQL Schema', () => {
       })
     })
   })
+
+  //
+  describe('release hash', () => {
+    it('can get a verification release hash', async () => {
+      let query = `
+      {
+        verifiedControls{
+          id
+          verifications{
+            release
+          }
+        }
+      }
+    `
+      let result = await graphql(schema, query, compliancePosture)
+      expect(result).not.toHaveProperty('errors')
+      expect(result.data.verifiedControls).toContainObject({
+        id: 'CM-8 (1)',
+        verifications: [
+          {
+            release: '60e61288-ef33-11e8-908e-06d86cf01138',
+          },
+        ],
+      })
+    })
+  })
+  //
 })

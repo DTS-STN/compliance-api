@@ -21,6 +21,10 @@ const Verification = new GraphQLObjectType({
       description: 'which controls this check satisfies',
       type: new GraphQLList(GraphQLString),
     },
+    release: {
+      description: 'release hash',
+      type: GraphQLString,
+    },
     component: {
       description: 'component',
       type: GraphQLString,

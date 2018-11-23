@@ -10,5 +10,6 @@
     "passed": false,
     "description": "The cluster uses Kube hunter for vulnerability scanning.",
     "references": "kube-hunter",
-    "component": "Infrastructure"
+    "component": "Infrastructure",
+    "release": "60e61288-ef33-11e8-908e-06d86cf01138"
 }

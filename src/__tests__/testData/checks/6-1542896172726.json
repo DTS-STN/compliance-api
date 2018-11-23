@@ -7,5 +7,6 @@
     "passed": false,
     "description": "The application implements the fail-safe policy.",
     "references": "https://github.com/cds-snc/compliance-policy-documents/fail-safe.md",
-    "component": "Policy"
+    "component": "Policy",
+    "release": "60e61288-ef33-11e8-908e-06d86cf01138"
 }
